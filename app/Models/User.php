@@ -64,6 +64,10 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
+    public function feedback(){
+        return $this->hasMany(Feedback::class);
+    }
+
     public function payment(){
         return $this->hasMany(Payment::class);
     }

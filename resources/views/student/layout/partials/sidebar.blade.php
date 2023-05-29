@@ -15,6 +15,11 @@
                     <i class="align-middle fa-regular fa fa-usd"></i> <span class="align-middle">Invoice</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ request()->routeIs('feedback') ? 'active' : '' }}">
+                <a class="sidebar-link" href=" {{ route('feedback') }}  ">
+                    <i class="align-middle fa-regular fa-comment"></i> <span class="align-middle">Feedback</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

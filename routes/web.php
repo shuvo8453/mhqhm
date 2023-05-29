@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -31,10 +32,15 @@ Route::get('/storage-link', function () {
     return \Illuminate\Support\Facades\Artisan::output();
 });
 
+Route::middleware('auth:web')->group(function (){
+    Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
+    Route::get('/invoice', [InvoiceController::class, 'invoice'])->name('invoice');
 
-Route::get('/invoice',[InvoiceController::class, 'invoice'])->name('invoice');
+    Route::get('/invoice/{id}', [InvoiceController::class, 'pdf'])->name('invoice.pdf');
 
-Route::get('/invoice/{id}',[InvoiceController::class, 'pdf'])->name('invoice.pdf');
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
+
+    Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+});
 
