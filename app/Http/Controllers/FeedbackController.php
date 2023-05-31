@@ -31,4 +31,30 @@ class FeedbackController extends Controller
         ]);
         return redirect()->route('feedback');
     }
+
+    public function update(Request $request, $id){
+
+        $request->validate([
+            'reason'      => 'required|max:255',
+            'description' => 'required'
+        ]);
+
+//        $feedback = Feedback::findOrFail($id)->update([
+//            'reason'      => $request->reason,
+//            'description' => $request->description
+//        ]);
+
+        $feedback->reason = $request->reason;
+        $feedback->description = $request->description;
+        $feedback->save();
+
+        return back();
+    }
+
+    public function data($id)
+    {
+        $data = Feedback::find($id);
+
+        return response()->json($data);
+    }
 }

@@ -42,5 +42,8 @@ Route::middleware('auth:web')->group(function (){
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
 
     Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
+    Route::get('/feedback/{id}', [FeedbackController::class, 'data'])->name('feedback.data');
+    Route::post('/feedback/{id}', [FeedbackController::class, 'update'])->name('feedback.data');
 });
 
