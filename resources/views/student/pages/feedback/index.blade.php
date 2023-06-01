@@ -49,7 +49,7 @@
                             <h5 class="modal-title" id="edit_Label">Edit Feedback</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="post" id="editForm" action="" enctype="multipart/form-data" id="editForm">
+                        <form method="post" id="editForm" action="" enctype="multipart/form-data" >
                             <div class="modal-body">
                                 <ul class="alert alert-danger d-none" id="edit_errorList"></ul>
                                 @csrf

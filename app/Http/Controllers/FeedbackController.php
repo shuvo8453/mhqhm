@@ -15,6 +15,7 @@ class FeedbackController extends Controller
     {
         $feedbacks = Feedback::where('user_id', auth()->user()->id)->get();
         return view('/student/pages/feedback/index', ['feedbacks'=>$feedbacks]);
+        return view('/student/pages/feedback/show', ['feedbacks'=>$feedbacks]);
     }
 
     public function store(Request $request)
@@ -53,7 +54,6 @@ class FeedbackController extends Controller
     }
 
     public function show(Feedback $feedback){
-//        dd(123);
 
         return view('student.pages.feedback.show', compact('feedback'));
     }
