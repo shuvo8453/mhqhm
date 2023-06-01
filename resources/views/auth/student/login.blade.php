@@ -28,6 +28,26 @@
         @vite('resources/css/app.css')
 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+        <style>
+            .password-container{
+                width: 495px;
+                position: relative;
+            }
+            .password-container input[type="password"],
+            .password-container input[type="text"]{
+                width: 100%;
+                padding: 12px 36px 12px 12px;
+
+            }
+            .fa-eye, .fa-eye-slash{
+                position: absolute;
+                top: 32%;
+                right: 4%;
+                cursor: pointer;
+                color: lightgray;
+            }
+        </style>
     </head>
 
     <body class="auth">
@@ -60,14 +80,18 @@
                                         </span>
                                         @enderror
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 password-container">
                                         <label for="password" class="form-label">Password</label>
-                                        <input class="form-control form-control-lg @error('password') is-invalid @enderror" required id="password"  type="password" name="password" placeholder="Enter your password"  />
+                                        <input class="form-control form-control-lg @error('password') is-invalid @enderror" required id="password"  type="password" name="password" placeholder="Enter your password" />
+                                        <i class="fa-solid fa-eye" onclick="myFunction()" id="eye"></i>
+{{--                                        <br>--}}
+{{--                                        <input type="checkbox" onclick="myFunction()"> Show Password--}}
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <br>
                                         <br>
                                         <span>
                                             <a href="{{ route('password.request') }}">Forgot password?</a>
@@ -101,6 +125,38 @@
         @endforeach
         @endif
     });
+
+    // function myFunction(){
+    //     var x = document.getElementById("password");
+    //     if(x.type === "password"){
+    //         x.type = "text"
+    //     }else{
+    //         x.type = "password";
+    //     }
+    // }
+
+    function myFunction() {
+        let x = document.getElementById("password");
+        console.log(123);
+        let eye = document.getElementById("eye");
+        console.log(456);
+        if(x.type === "password"){
+            eye.classList.remove("fa-eye")
+            eye.classList.add("fa-eye-slash")
+            x.type = "text"
+        }else {
+            eye.classList.remove("fa-eye-slash")
+            eye.classList.add("fa-eye")
+            x.type = "password"
+        }
+    }
+
+    // eye.addEventListener("click", function(){
+    //     console.log(789);
+    //     this.classList.toggle("fa-eye-slash")
+    //     const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+    //     passwordInput.setAttribute("type", type)
+    // })
 
 </script>
 </body>

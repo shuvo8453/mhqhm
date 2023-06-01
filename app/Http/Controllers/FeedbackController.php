@@ -32,17 +32,18 @@ class FeedbackController extends Controller
         return redirect()->route('feedback');
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, Feedback $feedback) {
 
         $request->validate([
             'reason'      => 'required|max:255',
             'description' => 'required'
         ]);
 
-//        $feedback = Feedback::findOrFail($id)->update([
-//            'reason'      => $request->reason,
-//            'description' => $request->description
-//        ]);
+       // $feedback = Feedback::findOrFail($id);
+            /*->update([
+            'reason'      => $request->reason,
+            'description' => $request->description
+        ]);*/
 
         $feedback->reason = $request->reason;
         $feedback->description = $request->description;
@@ -51,10 +52,17 @@ class FeedbackController extends Controller
         return back();
     }
 
-    public function data($id)
-    {
-        $data = Feedback::find($id);
+    public function show(Feedback $feedback){
+//        dd(123);
 
-        return response()->json($data);
+        return view('student.pages.feedback.show', compact('feedback'));
+    }
+
+    public function destroy(Feedback $feedback){
+
+        $feedback->delete();
+
+        return redirect()->route('feedback')
+            ->with('success','Feedback deleted successfully');
     }
 }

@@ -43,7 +43,10 @@ Route::middleware('auth:web')->group(function (){
 
     Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
-    Route::get('/feedback/{id}', [FeedbackController::class, 'data'])->name('feedback.data');
-    Route::post('/feedback/{id}', [FeedbackController::class, 'update'])->name('feedback.data');
+    Route::get('/feedback/{feedback}', [FeedbackController::class, 'show'])->name('feedback.show');
+
+    Route::post('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.data');
+
+    Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
 });
 

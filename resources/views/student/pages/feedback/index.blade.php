@@ -116,7 +116,13 @@
                                                         Edit
                                                     </button>
                                                 </li>
-                                                <li><button class="m-2 btn btn-sm btn-danger delete_button rounded" value="2"> Delete </button></li>
+                                                <li><a href="{{ route('feedback.show', $feedback->id) }}" class="m-2 btn btn-sm btn-success rounded">View</a>
+                                                </li>
+                                                <form action="{{ route('feedback.destroy', $feedback->id) }}" method="post">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <li><button class="m-2 btn btn-sm btn-danger rounded" type="submit" value="2"> Delete </button></li>
+                                                </form>
                                             </ul>
                                         </div>
                                     </td>
