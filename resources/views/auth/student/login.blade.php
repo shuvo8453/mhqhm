@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="shortcut icon" href="{{$systemSetting['favicon']}}" />
+        <link rel="shortcut icon" href="{{$systemSetting['favicon']}}"/>
         <title>Admin Login | {{$systemSetting['shortName'] ?? config("app.name")}}</title>
 
         <link href="{{ asset('asset/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -30,85 +30,95 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
         <style>
-            .password-container{
-                width: 495px;
-                position: relative;
+            .password-container {
+                width    : 495px;
+                position : relative;
             }
+
             .password-container input[type="password"],
-            .password-container input[type="text"]{
-                width: 100%;
-                padding: 12px 36px 12px 12px;
+            .password-container input[type="text"] {
+                width   : 100%;
+                padding : 12px 36px 12px 12px;
 
             }
-            .fa-eye, .fa-eye-slash{
-                position: absolute;
-                top: 32%;
-                right: 4%;
-                cursor: pointer;
-                color: lightgray;
+
+            .fa-eye, .fa-eye-slash {
+                position : absolute;
+                top      : 32%;
+                right    : 4%;
+                cursor   : pointer;
+                color    : lightgray;
+            }
+
+            .custom-overflow::-webkit-scrollbar{
+                display: none;
             }
         </style>
     </head>
 
-    <body class="auth">
-<main class="d-flex w-100">
-    <div class="container d-flex flex-column">
-        <div class="row vh-100">
-            <div class="col-sm-6 mx-auto d-table h-100">
-                <div class="d-table-cell align-middle">
+    <body class="auth custom-overflow">
+        <main class="d-flex w-100">
+            <div class="container d-flex flex-column">
+                <div class="row vh-100">
+                    <div class="col-sm-6 mx-auto d-table h-100">
+                        <div class="d-table-cell align-middle">
+                            <div class="text-center text-white mt-4">
+                                <div>
+                                    <img src="{{$systemSetting['logo']}}" alt="{{$systemSetting['siteName']}}"
+                                         class="img-fluid rounded-circle" width="132" height="132"/>
+                                </div>
+                                <p class="lead">
+                                    {{$systemSetting['siteName']}}
+                                </p>
+                            </div>
 
-                    <div class="text-center text-white mt-4">
-                        <div>
-                            <img src="{{$systemSetting['logo']}}" alt="{{$systemSetting['siteName']}}" class="img-fluid rounded-circle" width="132" height="132" />
-                        </div>
-                        <p class="lead">
-                            {{$systemSetting['siteName']}}
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="m-sm-4">
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="email"  class="form-label">Email</label>
-                                        <input class="form-control form-control-lg @error('email') is-invalid @enderror " id="email" type="email" name="email" placeholder="Enter your email" required autocomplete="email" autofocus />
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="m-sm-4">
+                                        <form method="POST" action="{{ route('login') }}">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input class="form-control form-control-lg @error('email') is-invalid @enderror "
+                                                       id="email" type="email" name="email" placeholder="Enter your email"
+                                                       required autocomplete="email" autofocus/>
+                                                @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3 password-container">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                                       required id="password" type="password" name="password"
+                                                       placeholder="Enter your password"/>
+                                                <i class="fa-solid fa-eye" onclick="myFunction()" id="eye"></i>
+                                                {{--                                        <br>--}}
+                                                {{--                                        <input type="checkbox" onclick="myFunction()"> Show Password--}}
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <br>
+                                                <br>
+                                                <span>
+                                                    <a href="{{ route('password.request') }}">Forgot password?</a>
+                                                </span>
+                                            </div>
+                                            <div class="text-end mt-3">
+                                                <button type="submit" class="btn rounded btn-success ">Sign in</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="mb-3 password-container">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input class="form-control form-control-lg @error('password') is-invalid @enderror" required id="password"  type="password" name="password" placeholder="Enter your password" />
-                                        <i class="fa-solid fa-eye" onclick="myFunction()" id="eye"></i>
-{{--                                        <br>--}}
-{{--                                        <input type="checkbox" onclick="myFunction()"> Show Password--}}
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <br>
-                                        <br>
-                                        <span>
-                                            <a href="{{ route('password.request') }}">Forgot password?</a>
-                                        </span>
-                                    </div>
-                                    <div class="text-end mt-3">
-                                        <button type="submit" class="btn rounded btn-success ">Sign in</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</main>
+        </main>
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -140,11 +150,11 @@
         console.log(123);
         let eye = document.getElementById("eye");
         console.log(456);
-        if(x.type === "password"){
+        if (x.type === "password") {
             eye.classList.remove("fa-eye")
             eye.classList.add("fa-eye-slash")
             x.type = "text"
-        }else {
+        } else {
             eye.classList.remove("fa-eye-slash")
             eye.classList.add("fa-eye")
             x.type = "password"
@@ -159,7 +169,7 @@
     // })
 
 </script>
-</body>
+    </body>
 </html>
 </p>
 </body>
